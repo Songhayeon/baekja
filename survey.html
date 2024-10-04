@@ -10,23 +10,31 @@
             margin: 20px;
             line-height: 1.6;
             max-width: 600px;
+            padding: 20px;
             margin: auto;
+            background-color: #f7f7f7;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
         h1, h2 {
             color: #2c3e50;
+            text-align: center;
         }
         .question {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         label {
             font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
         }
         input[type="text"], select {
             width: 100%;
-            padding: 10px;
-            margin: 5px 0;
+            padding: 12px;
+            margin: 5px 0 15px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            box-sizing: border-box;
         }
         .navigation {
             display: flex;
@@ -37,9 +45,11 @@
             background-color: #3498db;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             cursor: pointer;
             border-radius: 5px;
+            width: 48%;
+            text-align: center;
         }
         input[type="button"]:hover, input[type="submit"]:hover {
             background-color: #2980b9;
@@ -47,10 +57,10 @@
         .progress-bar {
             height: 20px;
             width: 100%;
-            background-color: #f3f3f3;
-            border-radius: 5px;
-            overflow: hidden;
+            background-color: #e0e0e0;
+            border-radius: 10px;
             margin-bottom: 20px;
+            overflow: hidden;
         }
         .progress {
             height: 100%;
@@ -147,7 +157,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 4;
+        const totalSteps = 3;
 
         function updateProgressBar(step) {
             const progress = document.getElementById('progressBar');
