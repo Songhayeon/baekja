@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>목 주름 관리 화장품 설문조사</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        input[type="button"], input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        input[type="button"]:hover, input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .progress-bar {
+            height: 20px;
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .progress {
+            height: 100%;
+            width: 0%;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+        @media (max-width: 600px) {
+            input[type="button"], input[type="submit"] {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>목 주름 관리 화장품 설문조사</h1>
+    <p>고객님의 피부 상태와 생활 습관을 바탕으로 맞춤형 제품을 추천해드립니다.</p>
+
+    <!-- 진행 바 -->
+    <div class="progress-bar">
+        <div class="progress" id="progressBar"></div>
+    </div>
+
+    <form id="surveyForm">
+        <!-- Step 1 -->
+        <div class="step" id="step1">
+            <h2>1. 피부 상태</h2>
+            <div class="question">
+                <label>목 주름이 언제부터 생기기 시작했나요?</label><br>
+                <select name="neck_wrinkle_duration" id="neck_wrinkle_duration">
+                    <option value="1년 미만">1년 미만</option>
+                    <option value="1-3년">1-3년</option>
+                    <option value="3-5년">3-5년</option>
+                    <option value="5년 이상">5년 이상</option>
+                </select>
+            </div>
+            <div class="question">
+                <label>목 주름의 깊이는 어느 정도인가요?</label><br>
+                <select name="wrinkle_depth" id="wrinkle_depth">
+                    <option value="얕음">얕음</option>
+                    <option value="중간">중간</option>
+                    <option value="깊음">깊음</option>
+                </select>
+            </div>
+            <div class="navigation">
+                <input type="button" value="다음" onclick="nextStep(2)">
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step" id="step2" style="display: none;">
+            <h2>2. 생활 습관</h2>
+            <div class="question">
+                <label>하루에 몇 시간 정도 스마트폰을 사용하시나요?</label><br>
+                <select name="phone_usage" id="phone_usage">
+                    <option value="1시간 이하">1시간 이하</option>
+                    <option value="1-3시간">1-3시간</option>
+                    <option value="3-5시간">3-5시간</option>
+                    <option value="5시간 이상">5시간 이상</option>
+                </select>
+            </div>
+            <div class="question">
+                <label>자외선 차단제를 목에 바르시나요?</label><br>
+                <select name="sunscreen_use" id="sunscreen_use">
+                    <option value="매일 바름">매일 바름</option>
+                    <option value="가끔 바름">가끔 바름</option>
+                    <option value="전혀 바르지 않음">전혀 바르지 않음</option>
+                </select>
+            </div>
+            <div class="navigation">
+                <input type="button" value="이전" onclick="prevStep(1)">
+                <input type="button" value="다음" onclick="nextStep(3)">
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step" id="step3" style="display: none;">
+            <h2>3. 화장품 사용 습관</h2>
+            <div class="question">
+                <label>목 전용 화장품을 사용한 적이 있나요?</label><br>
+                <select name="neck_care_product_experience" id="neck_care_product_experience">
+                    <option value="네">네</option>
+                    <option value="아니요">아니요</option>
+                </select>
+            </div>
+            <div class="navigation">
+                <input type="button" value="이전" onclick="prevStep(2)">
+                <input type="submit" value="제출">
+            </div>
+        </div>
+    </form>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgressBar(step) {
+            const progress = document.getElementById('progressBar');
+            const percentage = (step / totalSteps) * 100;
+            progress.style.width = percentage + '%';
+        }
+
+        function nextStep(step) {
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            currentStep = step;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+            updateProgressBar(currentStep);
+        }
+
+        function prevStep(step) {
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            currentStep = step;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+            updateProgressBar(currentStep);
+        }
+
+        document.getElementById('surveyForm').onsubmit = function(e) {
+            e.preventDefault(); // 폼 제출 방지
+
+            // 설문 응답에 따라 케이스를 결정하는 로직
+            const wrinkleDepth = document.getElementById('wrinkle_depth')?.value;
+            const neckDryness = document.getElementById('neck_dryness')?.value;
+            const phoneUsage = document.getElementById('phone_usage')?.value;
+            const sunscreenUse = document.getElementById('sunscreen_use')?.value;
+
+            // 케이스 선택 로직
+            let casePage = '';
+
+            if (wrinkleDepth === '얕음' && neckDryness === '자주 느끼는 편') {
+                casePage = 'case_1.html'; 
+            } else if (wrinkleDepth === '깊음' && sunscreenUse === '전혀 바르지 않음') {
+                casePage = 'case_2.html'; 
+            } else if (phoneUsage === '5시간 이상') {
+                casePage = 'case_3.html'; 
+            } else if (neckDryness === '가끔 느끼는 편' && wrinkleDepth === '중간') {
+                casePage = 'case_4.html'; 
+            } else if (sunscreenUse === '전혀 바르지 않음') {
+                casePage = 'case_5.html'; 
+            } else if (neckDryness === '전혀 느끼지 않음' && wrinkleDepth === '얕음') {
+                casePage = 'case_6.html'; 
+            } else if (wrinkleDepth === '깊음' && neckDryness === '자주 느끼는 편') {
+                casePage = 'case_7.html'; 
+            } else if (wrinkleDepth === '중간' && neckDryness === '가끔 느끼는 편') {
+                casePage = 'case_8.html'; 
+            } else if (neckDryness === '전혀 느끼지 않음') {
+                casePage = 'case_9.html'; 
+            } else {
+                casePage = 'case_10.html'; 
+            }
+
+            window.location.href = casePage;
+        };
+    </script>
+
+</body>
+</html>
